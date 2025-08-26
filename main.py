@@ -1,19 +1,23 @@
-from stats import get_num_words,get_letter_count
+from stats import get_num_words,get_letter_count,sorted_dict_list
 
 def get_book_text(filepath):
-    book_text = ""
-    num_words = 0
-
     with open(filepath) as file:
         book_text = file.read()
-        num_words = get_num_words(book_text)
-        print(f"{num_words} words found in the document")
-        letter_count = get_letter_count(book_text)
-        for letter in letter_count:
-            print(f"'{letter}': {letter_count[letter]}")
-    # return book_text
+    return book_text
 
 def main():
-    get_book_text("./books/frankenstein.txt")
+    text = get_book_text("books/frankenstein.txt")
+
+    num_words = get_num_words(text)
+    letter_count = get_letter_count(text)
+    sorted_letter_list = sorted_dict_list(letter_count)
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at books/frankenstein.txt...")
+    print("----------- Word Count ----------")
+    print(f"Found {num_words} total words")
+    print("--------- Character Count -------")
+    for letter_dict in sorted_letter_list:
+        print(f"{letter_dict["char"]}: {letter_dict["num"]}")
+    print("============= END ===============")
 
 main()
